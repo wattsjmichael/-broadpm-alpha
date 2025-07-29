@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Box, CircularProgress, Typography } from '@mui/material'
 
 import MetricsDashboard from './components/MetricsDashboard'
 import CostMetrics from './components/CostMetrics'
@@ -13,6 +14,7 @@ export default function App() {
   const [tasks, setTasks] = useState([])
   const [costInputs, setCostInputs] = useState({ pv: 0, ev: 0, ac: 0, bac: 0 })
   const [docs, setDocs] = useState({})
+  const [loading, setLoading] = useState(true)
   const [projectId, setProjectId] = useState(
     new URLSearchParams(window.location.search).get('id') ||
       localStorage.getItem('broadpmProjectId')
@@ -20,7 +22,10 @@ export default function App() {
 
   // --- Load from Firestore ---
   useEffect(() => {
-    if (!projectId) return
+    if (!projectId) {
+      setLoading(false) // No project ID, go to wizard
+      return
+    }
 
     async function fetchData() {
       const data = await loadProjectData(projectId)
@@ -30,6 +35,7 @@ export default function App() {
         setCostInputs(data.costInputs || { pv: 0, ev: 0, ac: 0, bac: 0 })
         setDocs(data.docs || {})
       }
+      setLoading(false) // Done loading
     }
     fetchData()
   }, [projectId])
@@ -73,6 +79,27 @@ export default function App() {
         }))
       )
     })
+  }
+
+  // --- Show loading spinner ---
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          gap: 2
+        }}
+      >
+        <CircularProgress size={50} />
+        <Typography variant="body1" color="text.secondary">
+          Loading project...
+        </Typography>
+      </Box>
+    )
   }
 
   return (
