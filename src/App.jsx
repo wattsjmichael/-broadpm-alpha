@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, CircularProgress, Typography } from '@mui/material'
-
+import { Analytics } from "@vercel/analytics/next"
 import MetricsDashboard from './components/MetricsDashboard'
 import CostMetrics from './components/CostMetrics'
 import KanbanBoard from './components/KanbanBoard'
@@ -129,6 +129,7 @@ export default function App() {
           </>
         )}
       </div>
+      <Analytics />
     </div>
   )
 }
