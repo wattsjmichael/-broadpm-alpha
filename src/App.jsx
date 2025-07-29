@@ -4,7 +4,7 @@ import MetricsDashboard from './components/MetricsDashboard'
 import CostMetrics from './components/CostMetrics'
 import KanbanBoard from './components/KanbanBoard'
 import ProjectWizard from './components/ProjectWizard'
-import Roadmap from './components/Roadmap'
+import Roadmap from './components/RoadMap'
 import HeaderBar from './components/HeaderBar'
 import { saveProjectData, loadProjectData } from './services/firestore'
 
