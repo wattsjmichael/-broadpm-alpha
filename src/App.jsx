@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Box, CircularProgress, Typography } from '@mui/material'
 import { Analytics } from "@vercel/analytics/next"
+import { track } from '@vercel/analytics/react'
 import MetricsDashboard from './components/MetricsDashboard'
 import CostMetrics from './components/CostMetrics'
 import KanbanBoard from './components/KanbanBoard'
@@ -62,6 +63,10 @@ export default function App() {
     const newId = `broadpm-${Date.now()}`
     setProjectId(newId)
     localStorage.setItem('broadpmProjectId', newId)
+    track('Project Created', {
+    projectName: proj.name,
+    budget: proj.budget
+  })
 
     // Update URL with new ID
     const newUrl = `${window.location.pathname}?id=${newId}`
