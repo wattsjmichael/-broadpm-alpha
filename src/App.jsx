@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, CircularProgress, Typography } from '@mui/material'
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 import { track } from '@vercel/analytics/react'
 import MetricsDashboard from './components/MetricsDashboard'
 import CostMetrics from './components/CostMetrics'
